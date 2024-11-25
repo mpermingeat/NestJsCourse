@@ -3,10 +3,12 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { ProductImage } from './';
 
-@Entity()
+@Entity({ name: 'products' })
 export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -53,6 +55,19 @@ export class Product {
 
   //tags
   //images
+  @OneToMany(
+    // # primera callback defino la relacion con la entidad q quiero relacionar
+    () => ProductImage,
+    // # segundo callback defino la relacion con la propierdad de la entidad q quiero
+    (productImage) => productImage.product,
+    // # Tercero defino las relgas de la relacion el eager define si queres q traiga las tablas relacionadas cuando haces un find, o no
+    {
+      cascade: true,
+      eager: true,
+    },
+  )
+  images?: ProductImage[];
+
   @BeforeInsert()
   checkSlugInsert() {
     if (!this.slug) {

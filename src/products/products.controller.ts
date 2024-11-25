@@ -30,7 +30,7 @@ export class ProductsController {
 
   @Get(':term')
   async findOne(@Param('term') term: string) {
-    return await this.productsService.findOne(term);
+    return await this.productsService.findOnePlain(term);
   }
 
   @Patch(':id')
