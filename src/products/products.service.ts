@@ -94,7 +94,7 @@ export class ProductsService {
   async update(id: string, updateProductDto: UpdateProductDto) {
     const { images, ...toUpdate } = updateProductDto;
 
-    //preload le dice buscame un obejto con ese id, y cargame estas propiedades
+    //preload le dice buscame un objeto con ese id, y cargame estas propiedades
     const product = await this.productRepository.preload({
       id,
       ...toUpdate,
